@@ -2,19 +2,38 @@
 //
 
 #include <iostream>
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
 
-int main()
+int main(int argc, char* argv[])
 {
-    std::cout << "Hello World!\n";
+	cv::VideoCapture capture;
+	cv::Mat frame;
+	bool success = true;
+	if (argc < 2) {
+		// webcam with index 0
+		success = capture.open(0);
+	}
+	else {
+		// video file
+		success = capture.open(argv[1]);
+	}
+	if (!success) {
+		std::cerr << "Unable to open video capture" << std::endl;
+		return 0;
+	}
+	while (capture.read(frame))
+	{
+		cv::Mat resized;
+		cv::resize(frame, resized, cv::Size(640, 480));
+		cv::Mat gray;
+		cv::cvtColor(resized, gray, cv::COLOR_BGR2GRAY);
+		cv::imshow("PreviewWindow", gray);
+
+		char key = static_cast<char>(cv::waitKey(1));
+		if (key == 27) { printf("exit"); break; }
+	}
+
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
