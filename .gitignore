@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/03_Marker_videos.zip
+/03_Marker_images.zip
+/04_marker_detection.pptx
+/03_Marker_images/ARmarker.avi

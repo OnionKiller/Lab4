@@ -7,7 +7,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgcodecs.hpp>
 
-int main(int argc, char* argv[])
+int main(int argc, std::string argv[])
 {
 	cv::VideoCapture capture;
 	cv::Mat frame;
